@@ -1,6 +1,6 @@
 package demo;
 
-import com.google.code.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Entity;
 
 /**
  * Copyright (c) 2008 - 2011 10gen, Inc. <http://10gen.com>

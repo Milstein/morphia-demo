@@ -1,22 +1,23 @@
 package demo;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
-import com.google.code.morphia.query.Query;
-import com.google.code.morphia.query.UpdateOperations;
-import com.mongodb.Mongo;
-
+import com.mongodb.MongoClient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 public class Test {
     public static void main(String[] args) throws Exception {
         Morphia morphia = new Morphia();
         morphia.map(Repository.class).map(Programmer.class);
-        Mongo mongo = new Mongo();
-        mongo.dropDatabase("test");
-        Datastore ds = morphia.createDatastore(mongo, "test");
+        
+        MongoClient mongoClient = MongoClientHelper.getMongoClient();
+        mongoClient.dropDatabase("test");
+        
+        Datastore ds = morphia.createDatastore(mongoClient, "test");
         ds.ensureIndexes();
 
         Programmer scott = createScott();
